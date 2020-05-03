@@ -9,5 +9,5 @@
 *   $ php abc.php
 
 => Masukan file idnya <br>
-=> Masukan passwordnya
-#TUNGGU HASILNYA :v
+=> Masukan passwordnya<br>
+<b>TUNGGU HASILNYA :v
