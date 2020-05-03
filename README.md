@@ -8,6 +8,6 @@
 *   $ cd FBfile-crack
 *   $ php abc.php
 
-=> Masukan file idnya
+=> Masukan file idnya <br>
 => Masukan passwordnya
 #TUNGGU HASILNYA :v
